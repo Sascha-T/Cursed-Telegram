@@ -1,0 +1,21 @@
+name: Publish Release
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build -t telegram-build .
+    - name: Build Telegram
+      run: docker run --rm -v "$PWD":/home/source telegram-build
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Telegram
+        path: TMessagesProj/build/outputs/apk/afat/release/app.apk
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: TMessagesProj/build/outputs/apk/afat/release/app.apk
