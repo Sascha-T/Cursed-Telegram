@@ -24378,7 +24378,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             allowPin = false;
         }
         allowPin = allowPin && message.getId() > 0 && (message.messageOwner.action == null || message.messageOwner.action instanceof TLRPC.TL_messageActionEmpty) && !message.isExpiredStory() && message.type != MessageObject.TYPE_STORY_MENTION;
-        boolean noforwards = getMessagesController().isChatNoForwards(currentChat) || message.messageOwner.noforwards;
+        boolean noforwards = false;
         boolean allowUnpin = message.getDialogId() != mergeDialogId && allowPin && (pinnedMessageObjects.containsKey(message.getId()) || groupedMessages != null && !groupedMessages.messages.isEmpty() && pinnedMessageObjects.containsKey(groupedMessages.messages.get(0).getId())) && !message.isExpiredStory();
         boolean allowEdit = message.canEditMessage(currentChat) && !chatActivityEnterView.hasAudioToSend() && message.getDialogId() != mergeDialogId && message.type != MessageObject.TYPE_STORY;
         if (allowEdit && groupedMessages != null) {
@@ -24663,14 +24663,12 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         } else if (type == 4) {
                             if (!noforwards && !selectedObject.hasRevealedExtendedMedia()) {
                                 if (selectedObject.isVideo()) {
-                                    if (!selectedObject.needDrawBluredPreview()) {
-                                        items.add(LocaleController.getString("SaveToGallery", R.string.SaveToGallery));
-                                        options.add(OPTION_SAVE_TO_GALLERY);
-                                        icons.add(R.drawable.msg_gallery);
-                                        items.add(LocaleController.getString("ShareFile", R.string.ShareFile));
-                                        options.add(OPTION_SHARE);
-                                        icons.add(R.drawable.msg_shareout);
-                                    }
+                                    items.add(LocaleController.getString("SaveToGallery", R.string.SaveToGallery));
+                                    options.add(OPTION_SAVE_TO_GALLERY);
+                                    icons.add(R.drawable.msg_gallery);
+                                    items.add(LocaleController.getString("ShareFile", R.string.ShareFile));
+                                    options.add(OPTION_SHARE);
+                                    icons.add(R.drawable.msg_shareout);
                                 } else if (selectedObject.isMusic()) {
                                     items.add(LocaleController.getString("SaveToMusic", R.string.SaveToMusic));
                                     options.add(OPTION_SAVE_TO_DOWNLOADS_OR_MUSIC);
@@ -24864,7 +24862,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                             options.add(OPTION_VIEW_IN_TOPIC);
                             icons.add(R.drawable.msg_viewintopic);
                         }
-                        if (type == 4 && !noforwards && !selectedObject.hasRevealedExtendedMedia() && !selectedObject.needDrawBluredPreview()) {
+                        if (type == 4 /* no clue what those conditions do */ ) {
                             if (selectedObject.isVideo()) {
                                 items.add(LocaleController.getString("SaveToGallery", R.string.SaveToGallery));
                                 options.add(OPTION_SAVE_TO_GALLERY);
@@ -28343,7 +28341,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 builder.setTitleMultipleLines(true);
             }
             final int finalTimestamp = timestamp;
-            boolean noforwards = getMessagesController().isChatNoForwards(currentChat) || (messageObject != null && messageObject.messageOwner != null && messageObject.messageOwner.noforwards);
+            boolean noforwards = false;
             builder.setItems(noforwards ? new CharSequence[] {LocaleController.getString("Open", R.string.Open)} : new CharSequence[]{LocaleController.getString("Open", R.string.Open), LocaleController.getString("Copy", R.string.Copy)}, (dialog, which) -> {
                 if (which == 0) {
                     if (str.startsWith("video?")) {
@@ -28563,7 +28561,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         if (url == null || getParentActivity() == null) {
             return;
         }
-        boolean noforwards = getMessagesController().isChatNoForwards(currentChat) || (messageObject != null && messageObject.messageOwner != null && messageObject.messageOwner.noforwards);
+        boolean noforwards = false;
         if (url instanceof URLSpanMono) {
             if (!noforwards) {
                 ((URLSpanMono) url).copyToClipboard();
