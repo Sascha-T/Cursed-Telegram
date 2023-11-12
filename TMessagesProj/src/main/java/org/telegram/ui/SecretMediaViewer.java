@@ -994,7 +994,7 @@ public class SecretMediaViewer implements NotificationCenter.NotificationCenterD
         } else {
             windowLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         }
-        windowLayoutParams.flags |= WindowManager.LayoutParams.FLAG_SECURE;
+        // windowLayoutParams.flags |= WindowManager.LayoutParams.FLAG_SECURE; | Nuh-uh #001
         centerImage.setParentView(containerView);
         centerImage.setForceCrossfade(true);
 

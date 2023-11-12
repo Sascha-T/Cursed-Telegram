@@ -2535,14 +2535,14 @@ public class StoryViewer implements NotificationCenter.NotificationCenterDelegat
                     if (allowScreenshots) {
                         fragment.getParentActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
                     } else {
-                        fragment.getParentActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                        // fragment.getParentActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); stop
                     }
                 }
             } else {
                 if (allowScreenshots) {
                     windowLayoutParams.flags &= ~WindowManager.LayoutParams.FLAG_SECURE;
                 } else {
-                    windowLayoutParams.flags |= WindowManager.LayoutParams.FLAG_SECURE;
+                    // windowLayoutParams.flags |= WindowManager.LayoutParams.FLAG_SECURE; what part of "no" do you not understand
                 }
                 try {
                     windowManager.updateViewLayout(windowView, windowLayoutParams);

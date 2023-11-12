@@ -503,7 +503,7 @@ public class TranslateAlert2 extends BottomSheet implements NotificationCenter.N
             textView.setTextIsSelectable(!noforwards);
         }
         if (noforwards) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); Nuh-uh #002
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
